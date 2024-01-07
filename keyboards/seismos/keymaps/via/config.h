@@ -24,10 +24,12 @@ for more options. */
 #if defined(KEYBOARD_seismos)
 // Add RGB underglow and top facing lighting
 #    define WS2812_DI_PIN D3
+#    define I2C_DRIVER I2CD1
+#    define I2C1_SDA_PIN D1
+#    define I2C1_SCL_PIN D0
 #    define RGBLED_NUM 80
 #    define RGBLED_SPLIT \
         { 40, 40 }
-#    define SOFT_SERIAL_PIN D2
 #    define EE_HANDS
 #    ifdef RGB_MATRIX_ENABLE
 #        define RGB_MATRIX_LED_COUNT RGBLED_NUM
