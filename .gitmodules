@@ -25,3 +25,6 @@
 	path = lib/lvgl
 	url = https://github.com/qmk/lvgl.git
 	branch = release/v8.2
+[submodule "lib/pico_i2c_slave"]
+	path = lib/pico_i2c_slave
+	url = https://github.com/vmilea/pico_i2c_slave.git
