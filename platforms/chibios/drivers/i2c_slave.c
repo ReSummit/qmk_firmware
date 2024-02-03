@@ -37,21 +37,27 @@ static volatile uint8_t buffer_address;
 static volatile bool    slave_has_register_set = false;
 
 void i2c_slave_init(uint8_t address) {
-    // load address into TWI address register
-    TWAR = address;
-    // set the TWCR to enable address matching and enable TWI, clear TWINT, enable TWI interrupt
-    TWCR = (1 << TWIE) | (1 << TWEA) | (1 << TWINT) | (1 << TWEN);
+    gpio_init(I2C1_SDA_PIN);
+    gpio_set_function(I2C1_SDA_PIN, GPIO_FUNC_I2C);
+    gpio_pull_up(I2C1_SDA_PIN);
+
+    gpio_init(I2C1_SCL_PIN);
+    gpio_set_function(I2C1_SCL_PIN, GPIO_FUNC_I2C);
+    gpio_pull_up(I2C1_SCL_PIN);
+
+    i2c_init(i2c0, I2C1_CLOCK_SPEED);
+    // configure I2C0 for slave mode
+    i2c_slave_init(i2c0, address, &ISR);
 }
 
 void i2c_slave_stop(void) {
-    // clear acknowledge and enable bits
-    TWCR &= ~((1 << TWEA) | (1 << TWEN));
+    i2c_slave_deinit(i2c0);
 }
 
-ISR(TWI_vect) {
+ISR(i2c_inst_t *i2c, i2c_slave_event_t event) {
     uint8_t ack = 1;
 
-    switch (TW_STATUS) {
+    switch (event) {
         case TW_SR_SLA_ACK:
             // The device is now a slave receiver
             slave_has_register_set = false;
@@ -105,7 +111,4 @@ ISR(TWI_vect) {
         default:
             break;
     }
-
-    // Reset i2c state machine to be ready for next interrupt
-    TWCR |= (1 << TWIE) | (1 << TWINT) | (ack << TWEA) | (1 << TWEN);
 }

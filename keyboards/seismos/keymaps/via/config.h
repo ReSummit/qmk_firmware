@@ -25,8 +25,13 @@ for more options. */
 // Add RGB underglow and top facing lighting
 #    define WS2812_DI_PIN D3
 #    define SERIAL_USART_FULL_DUPLEX
-#    define SERIAL_USART_TX_PIN D0
-#    define SERIAL_USART_RX_PIN D1
+#    define SERIAL_USART_TX_PIN F5
+#    define SERIAL_USART_RX_PIN F4
+
+//   Shift register for columns
+#    define SHIFT_CS_PIN B6
+#    define SHIFT_MOSI_PIN B2
+#    define SHIFT_SCLK_PIN B1
 #    define RGBLED_NUM 80
 #    define RGBLED_SPLIT \
         { 40, 40 }

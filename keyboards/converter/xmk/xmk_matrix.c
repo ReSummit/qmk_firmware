@@ -8,7 +8,7 @@
 #include "debug.h"
 
 bool xmk_changed = false;
-matrix_row_t xmk_rows[MATRIX_ROWS];
+matrix_row_t xmk_MATRIX_ROWS];
 
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
   if (xmk_changed) {
