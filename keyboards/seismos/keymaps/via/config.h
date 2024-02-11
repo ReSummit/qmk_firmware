@@ -1,5 +1,4 @@
-/* Copyright 2020 Josef Adamcik
- * Modification for VIA support and RGB underglow by Jens Bonk-Wiltfang
+/* Copyright 2023 Danny Vo
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,9 +23,21 @@ for more options. */
 #if defined(KEYBOARD_seismos)
 // Add RGB underglow and top facing lighting
 #    define WS2812_DI_PIN D3
+#    define DYNAMIC_KEYMAP_LAYER_COUNT 5
 #    define SERIAL_USART_FULL_DUPLEX
-#    define SERIAL_USART_TX_PIN F5
-#    define SERIAL_USART_RX_PIN F4
+#    define SIDE_LEFT
+#    if defined(SIDE_LEFT)
+        #    define SERIAL_USART_TX_PIN F4
+        #    define SERIAL_USART_RX_PIN F5
+#    else
+        #    define SERIAL_USART_TX_PIN F5
+        #    define SERIAL_USART_RX_PIN F4
+#    endif
+// If your microcontroller supports it, you can detect the pin swap instead:
+#    define SERIAL_USART_PIN_SWAP
+
+#define BOOTMAGIC_LITE_ROW 0
+#define BOOTMAGIC_LITE_COLUMN 0
 
 //   Shift register for columns
 #    define SHIFT_CS_PIN B6

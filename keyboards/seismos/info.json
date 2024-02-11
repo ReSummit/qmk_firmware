@@ -19,6 +19,13 @@
             {"pin_a": "F6", "pin_b": "F7", "resolution": 2}
         ]
     },
+    "features": {
+        "bootmagic": true,
+        "oled": true,
+        "rgblight": true,
+        "extrakey": true,
+        "mousekey": true
+    },
     "split": {
         "encoder": {
             "right": {
